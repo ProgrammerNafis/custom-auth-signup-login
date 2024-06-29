@@ -1,0 +1,31 @@
+{% extends 'base.html'%} {% block body_block%}
+<div class="contaier py-5">
+  {% for message in messages %}
+  <div
+    class="alert {{ message.tags }} alert-dismissible shadow fade show"
+    role="alert"
+  >
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {{ message | safe }}
+  </div>
+  {% endfor %}
+  <form action="" method="POST">
+    <label for="username">Enter Your Username:</label>
+    <input type="text" name="username" id="username">
+<br>
+    <label for="email">Enter Your Email Address:</label>
+    <input type="email" name="email" id="email" />
+    <br />
+    <label for="password1">Enter Your Password:</label>
+    <input type="password" name="password1" id="password1" />
+    <br />
+    <label for="password2">Enter Your Password:</label>
+
+    <input type="password" name="password2" id="password2" />
+{%csrf_token%}
+    <input type="submit" value="Sign UP" />
+  </form>
+</div>
+
+
+{%endblock%}
