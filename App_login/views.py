@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from .forms import *
 
 def sign_up(request):
     if request.method == 'POST':
@@ -41,3 +41,28 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return redirect('login')
+
+
+@login_required
+
+def profileChange(request):
+    user = request.user.user_profile
+    form = ProfileForm(instance=user)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        else:
+            return HttpResponse('incorrect info')
+        
+    data = {'form':form}
+    return render(request,'App_login/profileChange.html',data)
+
+@login_required
+def profile(request):
+    user = request.user
+    data = {'user':user}
+
+    return render(request,'App_login/profile.html',data)

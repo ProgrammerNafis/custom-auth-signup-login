@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='user_profile',null=True)
     username = models.CharField(max_length=264,blank=True)
-    full_name = models.CharField(max_length=264,blank=True)
+    first_name = models.CharField(max_length=274,blank=True)
+    last_name = models.CharField(max_length=238,blank=True)
     address_1 = models.TextField(max_length=300,blank=True)
     city = models.CharField(max_length=40)
     zipcode = models.CharField(max_length=50,blank=True)
@@ -14,4 +15,4 @@ class Profile(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user + "'s Profile"
+        return str(self.user) + "'s Profile"
